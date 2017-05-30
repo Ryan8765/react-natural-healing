@@ -1,0 +1,25 @@
+/*********************
+	Elements
+**********************/
+tbody>tr:hover {
+	cursor: pointer;
+}
+
+/*********************
+	Classes
+**********************/
+.view-link {
+	font-size: 2.5rem;
+}
+
+.pagination {
+	margin: 0 !important;
+}
+
+/*********************
+	ID's
+**********************/
+#table-container {
+	min-height: 600px;
+}
+

@@ -1,0 +1,135 @@
+/********************
+  Classes
+********************/
+.healing-leaves {
+  height: 120px;
+  margin-right: 20px; 
+}
+
+.assorted-colors {
+  height: 30px;
+  width: 100px;
+  margin: 0px 15px 0px 15px;
+  float: left; }
+
+.assorted-light {
+  background-color: #A6A5A5; }
+
+.assorted-md-light {
+  background-color: #757575; }
+
+.assorted-md-dark {
+  background-color: #030202; }
+
+.assorted-dark {
+  background-color: #000000; }
+
+.assorted-long {
+  background-color: #535353;
+  width: 40%; }
+
+.title-text {
+  font-size: 3.0em;
+  color: #A0A0A0;
+  margin: 40px 0px 20px 30px;
+  font-family: 'Croissant One', cursive; }
+
+/********************
+  Id's
+********************/
+
+#assorted-colors {
+  height: 30px;
+  padding-top: 15px; 
+}
+#header {
+  position: relative;
+  background-color: #404040; 
+}
+
+#logout-button {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    display: none;
+}
+#logout-button a {
+    -webkit-transition: color .5s;
+    /* Safari */
+    
+    transition: color .5s;
+    font-size: 2.0em;
+    color: white;
+}
+#logout-button a:hover {
+    color: #757575;
+}
+#login-button {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+#login-button a {
+    -webkit-transition: color .5s;
+    /* Safari */
+    
+    transition: color .5s;
+    font-size: 2.0em;
+    color: white;
+}
+#login-button a:hover {
+    color: #757575;
+}
+#my-account {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 55px;
+}
+#my-account a {
+    -webkit-transition: color .5s;
+    /* Safari */
+    
+    transition: color .5s;
+    font-size: 2.0em;
+    color: white;
+}
+#my-account a:hover {
+    color: #757575;
+}
+
+
+
+/********************
+  Media Queries
+********************/
+
+@media (max-width: 1200px) {
+  .assorted-long {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .title-text {
+    font-size: 2em;
+  }
+}
+
+@media (max-width: 650px) {
+  .assorted {
+    display: none;
+  }
+
+  .healing-leaves {
+    display: none;
+  }
+
+  .title-text {
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: 50px;
+  }
+}

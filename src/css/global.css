@@ -1,0 +1,51 @@
+/********************
+  Elements
+********************/
+
+body {
+  font-family: 'PT Sans', sans-serif; }
+
+ h1, h2, h3, h4, h5 {
+  color: #464646; }
+
+html {
+  margin-bottom: 50px; }
+
+
+/********************
+  Id's
+********************/
+#main-container {
+  margin: 20px; }
+
+
+/********************
+  Classes
+********************/
+
+.row {
+  margin: 0px; 
+}
+
+.centered {
+  text-align: center; 
+}
+
+
+.styled-button {
+  background-color: #000000;
+  color: #A6A5A5;
+  font-weight: bolder;
+  -webkit-transition: background-color .75s;
+  /* Safari */
+  transition: background-color .75s; }
+  .styled-button:hover {
+    background-color: #535353; }
+
+
+.margin-top {
+  margin-top: 50px; }
+
+
+.margin-top-sm {
+  margin-top: 20px; }
