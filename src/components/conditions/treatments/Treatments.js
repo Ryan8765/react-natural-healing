@@ -22,6 +22,7 @@ class Treatments extends Component {
 	// }
 	
 	render() {
+		//handles onclick row events for table
 		const options = {
 			onRowClick: function(row) {
 				alert(`You clicked row id: ${row.id}`);

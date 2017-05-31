@@ -12,6 +12,9 @@ import CreateTreatment from './components/treatments/create/CreateTreatment';
 //treatments
   //condition treatments
   import ConditionTreatment from './components/conditions/treatments/Treatments';
+//conditions
+  //find conditions
+  import FindConditions from'./components/conditions/find_conditions/Conditions';
 
 
 
@@ -41,6 +44,8 @@ class App extends Component {
                 <Route path="/welcome" component={Welcome} />
                 <Route path="/treatments/create" component={CreateTreatment} />
                 <Route path="/condition/treatments" component={ConditionTreatment} />
+                <Route path="/conditions" component={FindConditions} />
+
 
 
               </Switch>
