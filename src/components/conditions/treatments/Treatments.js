@@ -15,20 +15,25 @@ import './styles/styles.css';
 class Treatments extends Component {
 	constructor(props) {
 		super(props);
+		this.onChangeRoutes = this.onChangeRoutes.bind(this);
 	}
 
 	// createTreatmentLink(cell, row, enumObject) {
 	// 	return `<a href="http://wwww.google.com/${cell}"><i class="view-link fa fa-eye" aria-hidden="true"></i></a>`;
 	// }
-	
+	onChangeRoutes(id) {
+		this.props.history.push(`/treatment/${id}`);
+	}
+
 	render() {
 		//handles onclick row events for table
 		const options = {
-			onRowClick: function(row) {
-				alert(`You clicked row id: ${row.id}`);
+			onRowClick: (row) => {
+				// alert(`You clicked row id: ${row.id}`);
+				this.onChangeRoutes( row.id );
 			},
-			onRowDoubleClick: function(row) {
-				alert(`You double clicked row id: ${row.id}`);
+			onRowDoubleClick: (row) => {
+				this.onChangeRoutes( row.id );
 			}
 		};
 

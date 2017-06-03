@@ -32,7 +32,7 @@ class Navigation extends Component {
 					        <li className="dropdown">
 								<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Conditions <span className="caret"></span></a>
 								<ul className="dropdown-menu">
-									<li><a href="#">Find Conditions</a>
+									<li><Link to="/conditions">Find Conditions</Link>
 									</li>
 									<li><a href="#">Create Condition</a>
 									</li>
@@ -41,7 +41,7 @@ class Navigation extends Component {
 					        <li className="dropdown">
 								<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Treatments <span className="caret"></span></a>
 								<ul className="dropdown-menu">
-									<li><a href="#">Find Treatments</a>
+									<li><Link to="/conditions">Find Treatment</Link>
 									</li>
 									<li><Link to="/treatments/create">Create Treatment</Link>
 									</li>

@@ -1,25 +1,34 @@
 import React, { Component } from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
+
 import './styles/react-bootstrap-table-all.min.css';
 import './styles/styles.css';
 
 
 
 class Conditions extends Component {
-	constructor() {
-		super();
+	
+
+	constructor(props) {
+		super(props);
+
+		this.onChangeRoutes = this.onChangeRoutes.bind(this);
+	}
+	onChangeRoutes(id) {
+		this.props.history.push(`condition/${id}/treatments`);
 	}
 
 	render() {
 
 		//handles onclick row events for table
 		const options = {
-			onRowClick: function(row) {
-				alert(`You clicked row id: ${row.id}`);
+			onRowClick: (row) => {
+				// alert(`You clicked row id: ${row.id}`);
+				this.onChangeRoutes( row.id );
 			},
-			onRowDoubleClick: function(row) {
-				alert(`You double clicked row id: ${row.id}`);
+			onRowDoubleClick: (row) => {
+				this.onChangeRoutes( row.id );
 			}
 		};
 
@@ -86,7 +95,7 @@ class Conditions extends Component {
 		return (
 			<div>
 				<div className="row">
-					<h3 className="centered">Search Conditions</h3>
+					<h3 className="centered">Select Condition</h3>
 					<div className="margin-top"></div>
 					<div id="table-container">
 						<div className="col-md-4 col-md-offset-4">
@@ -95,7 +104,7 @@ class Conditions extends Component {
 						      			dataField='name' 
 						      			dataAlign='center' 
 						      			filter={ { type: 'TextFilter', delay: 250 ,placeholder:"Search for condition"} } 
-						      			dataSort={ true }>Conditions
+						      			dataSort={ true }>Search Conditions
 						      	</TableHeaderColumn>
 						  	</BootstrapTable>
 						</div>

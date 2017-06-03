@@ -1,0 +1,29 @@
+.rating-icon {
+  font-size: 2em;
+  color: #329C15; }
+  .rating-icon:last-child {
+    margin-left: 10px; }
+
+.rating-review {
+  font-weight: bolder;
+  color: #030202;
+  font-size: 1.2em; }
+
+.num-reviews {
+  font-weight: bold;
+  color: #757575; }
+
+.user-likes {
+  color: #757575; }
+
+.comment-item {
+  border-bottom: 1px solid #E7E7E7; }
+
+.crud-icon {
+  color: #757575;
+  float: right;
+  font-size: 1.5em;
+  margin-left: 15px; }
+  .crud-icon:hover {
+    color: #030202;
+    cursor: pointer; }

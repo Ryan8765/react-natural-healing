@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 //images
 import logo from './img/leaves.png';
 //styles
@@ -26,7 +27,7 @@ class Header extends Component {
 				
 				{/*login*/}
 				<div id="login-button">
-					<a href="#login"><span title="Login"><i className="fa fa-sign-in" aria-hidden="true"></i></span></a>
+					<Link to="/login"><span title="Login"><i className="fa fa-sign-in" aria-hidden="true"></i></span></Link>
 				</div>
 				{/*login*/}
 

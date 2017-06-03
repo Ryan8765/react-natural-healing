@@ -8,10 +8,14 @@ import Header from './components/header/Header';
 import Navigation from './components/navigation/Navigation';
 import Welcome from './components/welcome/Welcome';
 import CreateTreatment from './components/treatments/create/CreateTreatment';
+import Login from './components/login/Login';
+import Logout from './components/logout/Logout';
+import Password from './components/password_reset/Password';
 
 //treatments
   //condition treatments
-  import ConditionTreatment from './components/conditions/treatments/Treatments';
+  import ConditionTreatments from './components/conditions/treatments/Treatments';
+  import Treatment from './components/treatments/treatment/Treatment';
 //conditions
   //find conditions
   import FindConditions from'./components/conditions/find_conditions/Conditions';
@@ -22,10 +26,6 @@ import CreateTreatment from './components/treatments/create/CreateTreatment';
 import './css/bootstrap/bootstrap.min.css';
 import './css/bootstrap/bootstrap-theme.min.css';
 import './css/global.css';
-
-
-//global scripts
-
 
 
 
@@ -41,13 +41,15 @@ class App extends Component {
               <Header />
               <Navigation />
               <Switch>
-                <Route path="/welcome" component={Welcome} />
-                <Route path="/treatments/create" component={CreateTreatment} />
-                <Route path="/condition/treatments" component={ConditionTreatment} />
-                <Route path="/conditions" component={FindConditions} />
 
-
-
+                  <Route path="/welcome" component={Welcome} />
+                  <Route path="/treatments/create" component={CreateTreatment} />
+                  <Route path="/condition/:id/treatments" component={ConditionTreatments} />
+                  <Route path="/conditions" component={FindConditions} />
+                  <Route path="/treatment/:id" component={Treatment} />
+                  <Route path="/login" component={Login} />
+                  <Route path="/logout" component={Logout} />
+                  <Route path="/password" component={Password} />
               </Switch>
             </div>            
           </div>
