@@ -28,13 +28,13 @@ class Navigation extends Component {
 					    <div className="collapse navbar-collapse">
 					      <ul className="nav navbar-nav">
 					        <li className="active"><Link to="/welcome">Home</Link></li>
-					        <li><a href="#about">About</a></li>
+					        <li><Link to="/about">About</Link></li>
 					        <li className="dropdown">
 								<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Conditions <span className="caret"></span></a>
 								<ul className="dropdown-menu">
 									<li><Link to="/conditions">Find Conditions</Link>
 									</li>
-									<li><a href="#">Create Condition</a>
+									<li><Link to="/create-condition">Create Condition</Link>
 									</li>
 								</ul>
 							</li>
@@ -47,6 +47,7 @@ class Navigation extends Component {
 									</li>
 								</ul>
 							</li>
+							<li><Link to="/create-account">Signup</Link></li>
 					      </ul>
 					    </div>
 					  </div>

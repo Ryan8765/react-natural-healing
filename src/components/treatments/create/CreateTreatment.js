@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+
+import './styles.css';
 
 
 class CreateTreatment extends Component {
@@ -8,6 +11,49 @@ class CreateTreatment extends Component {
 	}
 
 	render() {
+		var treatmentItems = [
+			{
+				id: '1',
+				name: 'Charcoal',
+				brandName: 'Natures Way',
+				dosage: '3/day',
+				notes: 'Write something here.',
+				cost: '$256.00'
+			},
+			{
+				id: '2',
+				name: 'Charcoal',
+				brandName: 'Natures Way',
+				dosage: '3/day',
+				notes: 'Write something here.',
+				cost: '$256.00'
+			},
+			{
+				id: '3',
+				name: 'Charcoal',
+				brandName: 'Natures Way',
+				dosage: '3/day',
+				notes: 'Write something here.',
+				cost: '$256.00'
+			},
+			{
+				id: '4',
+				name: 'Charcoal',
+				brandName: 'Natures Way',
+				dosage: '3/day',
+				notes: 'Write something here.',
+				cost: '$256.00'
+			},
+			{
+				id: '5',
+				name: 'Charcoal',
+				brandName: 'Natures Way',
+				dosage: '3/day',
+				notes: 'Write something here.',
+				cost: '$256.00'
+			}
+		];
+
 		return (
 			<div>
 
@@ -62,59 +108,22 @@ class CreateTreatment extends Component {
 				<div className="row">
 					<div className="col-md-6 col-md-offset-3">
 						<h4 className="centered margin-top">Treatment Items</h4>
-						<table id="treatment-item-table" className="table table-bordered table-style">
-							<thead>
-								<tr>
-									<th>Name</th>
-									<th>Brand Name</th>
-									<th>Dosage/Frequency</th>
-									<th>Misc Notes</th>
-									<th>Cost</th>
-								</tr>
-							</thead>
-							
-							<tbody id="append">
-								<tr>
-									<td>Charcoal</td>
-									<td>Natures Way</td>
-									<td>3/day</td>
-									<td>Write something</td>
-									<td>256$</td>
-									<td><span title="Remove" className="delete-treatment-item"><i className="fa fa-times-circle" aria-hidden="true"></i></span></td>
-								</tr>
-								<tr>
-									<td>Charcoal</td>
-									<td>Natures Way</td>
-									<td>3/day</td>
-									<td>Write something</td>
-									<td>256$</td>
-									<td><span title="Remove" className="delete-treatment-item"><i className="fa fa-times-circle" aria-hidden="true"></i></span></td>
-								</tr>
-								<tr>
-									<td>Charcoal</td>
-									<td>Natures Way</td>
-									<td>3/day</td>
-									<td>Write something</td>
-									<td>256$</td>
-									<td><span title="Remove" className="delete-treatment-item"><i className="fa fa-times-circle" aria-hidden="true"></i></span></td>
-								</tr>
-								<tr>
-									<td>Charcoal</td>
-									<td>Natures Way</td>
-									<td>3/day</td>
-									<td>Write something</td>
-									<td>256$</td>
-									<td><span title="Remove" className="delete-treatment-item"><i className="fa fa-times-circle" aria-hidden="true"></i></span></td>
-								</tr>
-
-							</tbody>
-						</table>
+						<div className="row">
+							<span title="Delete Selected Treatment Items">
+								<i className="fa fa-trash delete-row" aria-hidden="true"></i>
+							</span>
+						</div>
+						<BootstrapTable className="margin-top-sm" selectRow={ selectRowProp } data={ treatmentItems } hover pagination keyField="id">
+							<TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
+							<TableHeaderColumn dataField='brandName' dataSort={ true }>Brand Name</TableHeaderColumn>
+							<TableHeaderColumn dataField='dosage' dataSort={ true }>Dosage/Frequency</TableHeaderColumn>
+							<TableHeaderColumn dataField='notes' dataSort={ true }>Notes</TableHeaderColumn>
+							<TableHeaderColumn dataField='cost' dataSort={ true }>Cost</TableHeaderColumn>
+					    </BootstrapTable>
 					</div>
 					<div className="row">
 						<div className="col-md-2 col-md-offset-5">
-							
-							<input type="submit" className="form-control styled-button" value="Submit Treatment" />
-							
+							<input type="submit" className="form-control styled-button margin-top" value="Submit Treatment" />
 						</div>
 					</div>
 
@@ -125,6 +134,16 @@ class CreateTreatment extends Component {
 	}
 
 }
+
+
+
+const selectRowProp = {
+	mode: 'checkbox'
+};
+
+
+
+
 
 
 export default CreateTreatment;

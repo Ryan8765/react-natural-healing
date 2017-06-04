@@ -227,13 +227,12 @@ class Treatments extends Component {
 					<div className="row">
 						<div className="margin-top"></div>
 						<div className="col-md-6 col-md-offset-3">
-							<BootstrapTable data={treatments} hover pagination options={ options }>
-						      <TableHeaderColumn isKey dataField='id' dataAlign='center'>View Treatment</TableHeaderColumn>
+							<BootstrapTable data={treatments} hover pagination options={ options } keyField="id">
 						      <TableHeaderColumn dataField='name' dataSort={ true } filter={ { type: 'TextFilter', delay: 250 } }>Treatment Title</TableHeaderColumn>
 						      <TableHeaderColumn dataField='docRating' dataSort={ true }>Doctor Rating</TableHeaderColumn>
 						      <TableHeaderColumn dataField='patientRating' dataSort={ true }>Patient Rating</TableHeaderColumn>
 						      <TableHeaderColumn dataField='cost' dataSort={ true }>Cost</TableHeaderColumn>
-						  </BootstrapTable>
+						    </BootstrapTable>
 						</div>
 					</div>
 				</div>

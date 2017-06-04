@@ -8,8 +8,8 @@ body {
  h1, h2, h3, h4, h5 {
   color: #464646; }
 
-html {
-  margin-bottom: 50px; }
+/*html {
+  margin-bottom: 50px; }*/
 
 
 /********************
@@ -22,6 +22,14 @@ html {
 /********************
   Classes
 ********************/
+
+
+.footer {
+  font-size: 1.5rem;
+}
+.logo-color {
+  color: #84AC0B;
+}
 
 .row {
   margin: 0px; 
@@ -49,3 +57,13 @@ html {
 
 .margin-top-sm {
   margin-top: 20px; }
+
+
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+  background-color: #84AC0B;
+  border-color: #84AC0B;
+}
+
+.pagination>li>a, .pagination>li>span {
+  color: black;
+}

@@ -15,7 +15,7 @@ class Welcome extends Component {
 		return (
 			<div>
 				<div id="homepage-welcome">
-					<h1>Welcome To Natural Healing Reviews</h1>
+					<h1>Welcome To <span className="logo-color">Natural Healing Reviews</span></h1>
 					<h2>Explore Natural Alternatives for Common Health Problems</h2>
 				</div>
 

@@ -7,8 +7,18 @@
 }
 
 
+.react-bs-table.react-bs-table-bordered {
+	border: 1px solid #424242;
+}
 
+input.filter.text-filter.form-control {
+	border: 1px solid #424242;
+}
+
+
+/**********
+	Id's
+**********/
 #table-container {
 	min-height: 600px;
 }
-

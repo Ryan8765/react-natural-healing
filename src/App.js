@@ -11,6 +11,9 @@ import CreateTreatment from './components/treatments/create/CreateTreatment';
 import Login from './components/login/Login';
 import Logout from './components/logout/Logout';
 import Password from './components/password_reset/Password';
+import CreateAccount from './components/create_account/CreateAccount';
+import About from './components/about/About';
+import Footer from './components/footer/Footer';
 
 //treatments
   //condition treatments
@@ -19,6 +22,8 @@ import Password from './components/password_reset/Password';
 //conditions
   //find conditions
   import FindConditions from'./components/conditions/find_conditions/Conditions';
+  //create condition
+  import CreateCondition from './components/conditions/create/CreateCondition';
 
 
 
@@ -41,7 +46,6 @@ class App extends Component {
               <Header />
               <Navigation />
               <Switch>
-
                   <Route path="/welcome" component={Welcome} />
                   <Route path="/treatments/create" component={CreateTreatment} />
                   <Route path="/condition/:id/treatments" component={ConditionTreatments} />
@@ -50,6 +54,9 @@ class App extends Component {
                   <Route path="/login" component={Login} />
                   <Route path="/logout" component={Logout} />
                   <Route path="/password" component={Password} />
+                  <Route path="/create-account" component={CreateAccount} />
+                  <Route path="/create-condition" component={CreateCondition} />
+                  <Route path="/about" component={About} />
               </Switch>
             </div>            
           </div>

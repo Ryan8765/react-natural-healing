@@ -1,0 +1,12 @@
+.delete-row {
+    font-size: 2.3em;
+    color: red;
+    margin-left: 5px;
+    -webkit-transition: color 2s; /* Safari */
+    transition: color 2s;
+}
+
+.delete-row:hover {
+    cursor: pointer;
+    color: #800404;
+}
