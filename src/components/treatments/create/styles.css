@@ -10,3 +10,16 @@
     cursor: pointer;
     color: #800404;
 }
+
+
+.select-cell {
+	text-align: center;
+}
+
+.submit-button {
+	margin-bottom: 50px;
+}
+
+.trash-container {
+	min-height: 32px;
+}

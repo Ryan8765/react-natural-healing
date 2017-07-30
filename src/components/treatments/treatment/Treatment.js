@@ -1,18 +1,62 @@
 import React, { Component } from 'react';
+import { BASE_SERVER_URL } from '../../../config';
+import axios from 'axios';
+import currencyFormatter from 'currency-formatter';
+
 
 import './styles.css';
 
 class Treatment extends Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			treatment: {
+				name: "",
+				treatmentComponents: []
+			}
+		}
+	}
+
+	componentDidMount() {
+		const id = this.props.match.params.id;
+		axios({
+		    method: 'get',
+		    url: `${BASE_SERVER_URL}/treatments/${id}`
+		})
+		.then((res) => {
+			var treatment = res.data.treatment;
+		 	this.setState({
+		 		treatment
+		 	});
+		})
+		.catch((err) => {
+		});		
 	}
 
 	render() {
+		var { name, cost, precautions, treatmentComponents, description } = this.state.treatment;
+
+		//capitalize name
+		name = name.replace(/\b\w/g, l => l.toUpperCase());
+
+		var componentsHTML = treatmentComponents.map((component) => {
+			return (
+				<tr key={component.id}>
+					<td>{component.name}</td>
+					<td>{component.brandName}</td>
+					<td>{component.dosage}</td>
+					<td>{component.notes}</td>
+					<td>{currencyFormatter.format(Number(component.cost), { code: 'USD' })}</td>
+				</tr>
+			);
+		});
+
 		return(
 			<div>
 				<div className="row">
 					<div className="centered">
-						<h2>Acne Wash Treatment</h2>
+						<h2>{name} Treatment</h2>
 						<div className="row">
 							<div className="col-md-6 col-md-offset-3">
 								<div className="centered">
@@ -32,7 +76,7 @@ class Treatment extends Component {
 							<div className="row">
 								<div className="col-md-6 col-md-offset-3">
 									<select name="" id="" className="form-control">
-										<option value="select">-</option>
+										<option value="select">Select</option>
 										<option value="0">0</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
@@ -54,9 +98,9 @@ class Treatment extends Component {
 					<div>
 						<div className="col-md-6 col-md-offset-3">
 							<h3 className="margin-top centered">Description of Treatment</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, culpa quasi tempore assumenda, perferendis sunt. Quo consequatur saepe commodi maxime, sit atque veniam blanditiis molestias obcaecati rerum, consectetur odit accusamus.</p>
+							<p>{description}</p>
 							<h3 className="margin-top centered">Noted Side Effects/Precautions</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum voluptates, corporis nisi dolores cumque obcaecati perferendis, quisquam, ipsa commodi labore molestias dolor itaque nam cupiditate totam, ea dicta? Sit, asperiores?</p>
+							<p>{precautions}</p>
 						</div>
 					</div>
 				</div>
@@ -76,34 +120,7 @@ class Treatment extends Component {
 							</thead>
 							
 							<tbody id="append">
-								<tr>
-									<td>Charcoal</td>
-									<td>Natures Way</td>
-									<td>3/day</td>
-									<td>Write something</td>
-									<td>256$</td>
-								</tr>
-								<tr>
-									<td>Charcoal</td>
-									<td>Natures Way</td>
-									<td>3/day</td>
-									<td>Write something</td>
-									<td>256$</td>
-								</tr>
-								<tr>
-									<td>Charcoal</td>
-									<td>Natures Way</td>
-									<td>3/day</td>
-									<td>Write something</td>
-									<td>256$</td>
-								</tr>
-								<tr>
-									<td>Charcoal</td>
-									<td>Natures Way</td>
-									<td>3/day</td>
-									<td>Write something</td>
-									<td>256$</td>
-								</tr>
+								{componentsHTML}
 
 							</tbody>
 						</table>
@@ -119,7 +136,7 @@ class Treatment extends Component {
 						<h3 className="margin-top centered">User Comments</h3>
 						<div className="row">
 							<div className="col-md-4 col-md-offset-4 centered margin-top-sm">
-								<label for="">Sort By</label>
+								<label htmlFor="">Sort By</label>
 								<select className="form-control" name="" id="">
 									<option value="">Date Created</option>
 									<option value="">Most Likes</option>

@@ -2,27 +2,71 @@ import React, { Component } from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import './styles/react-bootstrap-table-all.min.css';
 import './styles/styles.css';
+import { BASE_SERVER_URL } from '../../../config';
+import axios from 'axios';
+import currencyFormatter from 'currency-formatter';
+import {Link} from 'react-router-dom';
 
-// import './lib/datatables/dataTables.bootstrap.min.css';
-// import './lib/datatables/dataTables.bootstrap.min.js';
-// import './lib/datatables/dataTables.min.js';
 
-// import $ from 'jquery';
-// $.DataTable = require('datatables.net');
+
 
 
 
 class Treatments extends Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			treatments: null
+		}
+
 		this.onChangeRoutes = this.onChangeRoutes.bind(this);
 	}
 
-	// createTreatmentLink(cell, row, enumObject) {
-	// 	return `<a href="http://wwww.google.com/${cell}"><i class="view-link fa fa-eye" aria-hidden="true"></i></a>`;
-	// }
+
 	onChangeRoutes(id) {
 		this.props.history.push(`/treatment/${id}`);
+	}
+
+
+
+	componentDidMount() {
+		console.log( "mounted" );
+		//get URL parameter
+		var id = this.props.match.params.id;
+
+		axios({
+		    method: 'get',
+		    url: `${BASE_SERVER_URL}/condition/${id}/treatments`
+		})
+		.then((res) => {
+			var data = res.data;
+			if( data.length > 0 ) {
+				var treatments = data.map((treatment) => {
+					if( !treatment.rating ) {
+						treatment.rating = null;
+					}
+					return {
+						_id: treatment._id,
+						cost: currencyFormatter.format(Number(treatment.cost), { code: 'USD' }),
+						name: treatment.name,
+						rating: treatment.rating
+					};
+				});
+
+				this.setState({
+					treatments
+				});
+			} else {
+				this.setState({
+					error: "There are no treatments associated with this condition yet."
+				});
+			}			
+		})
+		.catch((err) => {
+		    
+		});
+		
 	}
 
 	render() {
@@ -30,206 +74,35 @@ class Treatments extends Component {
 		const options = {
 			onRowClick: (row) => {
 				// alert(`You clicked row id: ${row.id}`);
-				this.onChangeRoutes( row.id );
+				this.onChangeRoutes( row._id );
 			},
 			onRowDoubleClick: (row) => {
-				this.onChangeRoutes( row.id );
+				this.onChangeRoutes( row._id );
 			}
 		};
 
-		var treatments = [
-			{
-				id: 1,
-				name: 'Herbal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$30.00"
-			},
-			{
-				id: 2,
-				name: 'Charcoal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$60.00"
-			},
-			{
-				id: 3,
-				name: 'Paint Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$51.00"
-			},
-			{
-				id: 1,
-				name: 'Herbal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$30.00"
-			},
-			{
-				id: 2,
-				name: 'Charcoal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$60.00"
-			},
-			{
-				id: 3,
-				name: 'Paint Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$51.00"
-			},
-			{
-				id: 1,
-				name: 'Herbal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$30.00"
-			},
-			{
-				id: 2,
-				name: 'Charcoal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$60.00"
-			},
-			{
-				id: 3,
-				name: 'Paint Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$51.00"
-			},
-			{
-				id: 1,
-				name: 'Herbal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$30.00"
-			},
-			{
-				id: 2,
-				name: 'Charcoal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$60.00"
-			},
-			{
-				id: 3,
-				name: 'Paint Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$51.00"
-			},
-			{
-				id: 1,
-				name: 'Herbal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$30.00"
-			},
-			{
-				id: 2,
-				name: 'Charcoal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$60.00"
-			},
-			{
-				id: 3,
-				name: 'Paint Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$51.00"
-			},
-			{
-				id: 1,
-				name: 'Herbal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$30.00"
-			},
-			{
-				id: 2,
-				name: 'Charcoal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$60.00"
-			},
-			{
-				id: 3,
-				name: 'Paint Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$51.00"
-			},
-			{
-				id: 1,
-				name: 'Herbal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$30.00"
-			},
-			{
-				id: 2,
-				name: 'Charcoal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$60.00"
-			},
-			{
-				id: 3,
-				name: 'Paint Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$51.00"
-			},
-			{
-				id: 1,
-				name: 'Herbal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$30.00"
-			},
-			{
-				id: 2,
-				name: 'Charcoal Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$60.00"
-			},
-			{
-				id: 3,
-				name: 'Paint Cleanser',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$51.00"
-			},
-			{
-				id: 3,
-				name: 'Acne',
-				docRating: 9.5,
-				patientRating: 9,
-				cost: "$51.00"
-			}
-		];
+
+		const createTreatmentURl = () => {
+			var id = this.props.match.params.id;
+
+			return `/treatments/create/${id}`;
+		}
 
 
 
 		return (
 			<div className="row">
 				<div className="centered">
-					<h3 className="centered">Acne</h3>
-					<a href="#">&#43;Submit New Treatment</a>
+					<h3 className="centered">Treatments for ***CONDITION NAME HERE***</h3>
+					<Link to={createTreatmentURl()}>&#43;Submit New Treatment</Link>
 				</div>
 				<div id="table-container">
 					<div className="row">
 						<div className="margin-top"></div>
 						<div className="col-md-6 col-md-offset-3">
-							<BootstrapTable data={treatments} hover pagination options={ options } keyField="id">
+							<BootstrapTable data={this.state.treatments} hover pagination options={ options } keyField="_id">
 						      <TableHeaderColumn dataField='name' dataSort={ true } filter={ { type: 'TextFilter', delay: 250 } }>Treatment Title</TableHeaderColumn>
-						      <TableHeaderColumn dataField='docRating' dataSort={ true }>Doctor Rating</TableHeaderColumn>
+						    
 						      <TableHeaderColumn dataField='patientRating' dataSort={ true }>Patient Rating</TableHeaderColumn>
 						      <TableHeaderColumn dataField='cost' dataSort={ true }>Cost</TableHeaderColumn>
 						    </BootstrapTable>

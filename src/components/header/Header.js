@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
 //images
 import logo from './img/leaves.png';
 //styles
@@ -12,6 +13,29 @@ class Header extends Component {
 	}
 
 
+	renderLoginLogout() {
+		const authenticated = this.props.authenticated;
+
+		if( authenticated ) {
+			return [
+				
+				<div key="1" id="logout-button">
+					<Link to="/logout"><span title="Logout"><i className="fa fa-sign-out" aria-hidden="true"></i></span></Link>
+				</div>,
+				<div key="2" id="my-account">
+					<a href="#myAccount" title="My Account"><i className="fa fa-user" aria-hidden="true"></i></a>
+				</div>
+				
+			];
+		} else {
+			return (
+				<div id="login-button">
+					<Link to="/login"><span title="Login"><i className="fa fa-sign-in" aria-hidden="true"></i></span></Link>
+				</div>
+			);
+		}
+	}
+
 
 	render() {
 		return (
@@ -19,25 +43,7 @@ class Header extends Component {
 			
 			<div id="header">
 
-				{/*Logout*/}
-				<div id="logout-button">
-					<a href="#logout"><span title="Logout"><i className="fa fa-sign-out" aria-hidden="true"></i></span></a>
-				</div>
-				{/*Logout*/}
-				
-				{/*login*/}
-				<div id="login-button">
-					<Link to="/login"><span title="Login"><i className="fa fa-sign-in" aria-hidden="true"></i></span></Link>
-				</div>
-				{/*login*/}
-
-				{/*My Account*/}
-				<div id="my-account">
-					<a href="#myAccount" title="My Account"><i className="fa fa-user" aria-hidden="true"></i></a>
-				</div>
-				{/*My Account*/}
-
-				
+				{this.renderLoginLogout()}
 
 				<div className="row assorted">
 					<div id="assorted-colors">
@@ -64,4 +70,10 @@ class Header extends Component {
 }
 
 
-export default Header;
+function mapStateToProps(state) {
+	return {
+		authenticated: state.auth.authenticated
+	};
+}
+
+export default connect(mapStateToProps, null)(Header);

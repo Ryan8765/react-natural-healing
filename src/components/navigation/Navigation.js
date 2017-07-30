@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 
 //styles
 import './styles.css';
@@ -8,6 +10,16 @@ import './styles.css';
 class Navigation extends Component {
 	constructor(props) {
 		super(props)
+	}
+
+
+	renderSigninLink() {
+		console.log( "authenticated " + this.props.authenticated );
+		if( !this.props.authenticated ) {
+			return (
+				<li><Link to="/create-account">Signup</Link></li>
+			);
+		}
 	}
 
 
@@ -47,7 +59,7 @@ class Navigation extends Component {
 									</li>
 								</ul>
 							</li>
-							<li><Link to="/create-account">Signup</Link></li>
+							{ this.renderSigninLink() }
 					      </ul>
 					    </div>
 					  </div>
@@ -58,5 +70,10 @@ class Navigation extends Component {
 	}
 }
 
+function mapStateToProps(state) {
+	return {
+		authenticated: state.auth.authenticated
+	};
+}
 
-export default Navigation;
+export default connect(mapStateToProps, null)(Navigation);

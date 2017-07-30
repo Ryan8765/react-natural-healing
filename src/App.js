@@ -11,9 +11,11 @@ import CreateTreatment from './components/treatments/create/CreateTreatment';
 import Login from './components/login/Login';
 import Logout from './components/logout/Logout';
 import Password from './components/password_reset/Password';
+import Verify from './components/verify_email/Verify';
 import CreateAccount from './components/create_account/CreateAccount';
 import About from './components/about/About';
 import Footer from './components/footer/Footer';
+import RequireAuth from './components_higher_order/auth/require_auth.js';
 
 //treatments
   //condition treatments
@@ -47,7 +49,8 @@ class App extends Component {
               <Navigation />
               <Switch>
                   <Route path="/welcome" component={Welcome} />
-                  <Route path="/treatments/create" component={CreateTreatment} />
+                  <Route path="/verify/:secret/:email" component = {Verify} />
+                  <Route path="/treatments/create/:conditionID" component={CreateTreatment} />
                   <Route path="/condition/:id/treatments" component={ConditionTreatments} />
                   <Route path="/conditions" component={FindConditions} />
                   <Route path="/treatment/:id" component={Treatment} />
@@ -55,7 +58,7 @@ class App extends Component {
                   <Route path="/logout" component={Logout} />
                   <Route path="/password" component={Password} />
                   <Route path="/create-account" component={CreateAccount} />
-                  <Route path="/create-condition" component={CreateCondition} />
+                  <Route path="/create-condition" component={RequireAuth(CreateCondition)} />
                   <Route path="/about" component={About} />
               </Switch>
             </div>            

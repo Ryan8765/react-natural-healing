@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { signOutUser } from '../../actions/auth';
+
 
 import leavesDrops from './img/leaves-drops.jpg';
 
@@ -8,6 +13,13 @@ import leavesDrops from './img/leaves-drops.jpg';
 class Logout extends Component {
 	constructor(props) {
 		super(props);
+	}
+
+	componentWillMount() {
+		if( this.props.authenticated ) {
+			//dispatch an action to unauthenticate the user
+			this.props.signOutUser();
+		}
 	}
 
 	render() {
@@ -25,4 +37,17 @@ class Logout extends Component {
 }
 
 
-export default Logout;
+
+//in our render method we can now call the action creators
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({ signOutUser }, dispatch);
+}
+
+
+function mapStateToProps(state) {
+	return {
+		authenticated: state.auth.authenticated
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Logout);
