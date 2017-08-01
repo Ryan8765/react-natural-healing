@@ -17,7 +17,8 @@ class Treatments extends Component {
 		super(props);
 
 		this.state = {
-			treatments: null
+			treatments: null,
+			conditionName: null
 		}
 
 		this.onChangeRoutes = this.onChangeRoutes.bind(this);
@@ -40,9 +41,10 @@ class Treatments extends Component {
 		    url: `${BASE_SERVER_URL}/condition/${id}/treatments`
 		})
 		.then((res) => {
-			var data = res.data;
-			if( data.length > 0 ) {
-				var treatments = data.map((treatment) => {
+			var treatmentData = res.data.treatments;
+			var conditionName = res.data.condition;
+			if( treatmentData.length > 0 ) {
+				var treatments = treatmentData.map((treatment) => {
 					if( !treatment.rating ) {
 						treatment.rating = null;
 					}
@@ -57,11 +59,16 @@ class Treatments extends Component {
 				this.setState({
 					treatments
 				});
+				console.log( 'hello' );
+
 			} else {
 				this.setState({
 					error: "There are no treatments associated with this condition yet."
 				});
-			}			
+			}	
+
+			//set state condition name.
+			this.setState({conditionName});		
 		})
 		.catch((err) => {
 		    
@@ -93,7 +100,7 @@ class Treatments extends Component {
 		return (
 			<div className="row">
 				<div className="centered">
-					<h3 className="centered">Treatments for ***CONDITION NAME HERE***</h3>
+					<h3 className="centered">Treatments for {this.state.conditionName}</h3>
 					<Link to={createTreatmentURl()}>&#43;Submit New Treatment</Link>
 				</div>
 				<div id="table-container">
