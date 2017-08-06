@@ -43,6 +43,7 @@ class Treatments extends Component {
 		.then((res) => {
 			var treatmentData = res.data.treatments;
 			var conditionName = res.data.condition;
+			var id = res.data._id;
 			if( treatmentData.length > 0 ) {
 				var treatments = treatmentData.map((treatment) => {
 					if( !treatment.rating ) {
@@ -57,18 +58,16 @@ class Treatments extends Component {
 				});
 
 				this.setState({
+					conditionName,
 					treatments
 				});
-				console.log( 'hello' );
 
 			} else {
 				this.setState({
 					error: "There are no treatments associated with this condition yet."
 				});
 			}	
-
-			//set state condition name.
-			this.setState({conditionName});		
+	
 		})
 		.catch((err) => {
 		    

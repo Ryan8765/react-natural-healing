@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { BASE_SERVER_URL } from '../../../config';
 import axios from 'axios';
 import currencyFormatter from 'currency-formatter';
+import Comment from '../../comments/Comment';
+import { connect } from 'react-redux';
+import validator from 'validator';
+import { getAuthToken_h, unauth_redirect_h } from "../../../helpers/auth";
+
 
 
 import './styles.css';
@@ -14,9 +19,93 @@ class Treatment extends Component {
 			treatment: {
 				name: "",
 				treatmentComponents: []
-			}
+			},
+			newComment: "",
+			comments: []
+		}
+
+		this.handleCommentChange = this.handleCommentChange.bind(this);
+		this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+	}
+
+	/*
+		Validate whether user has comment content.
+	 */
+	isCommentValidated() {
+		console.log( this.state.newComment );
+		if( !this.state.newComment ) {
+			console.log( false );
+			return false;
+		}
+
+		return true;
+	}
+
+	/*
+		Handle updating state for user typing into comment box
+	 */
+	handleCommentChange( event ) {
+		var value = event.target.value;
+
+		this.setState({
+			newComment: value
+		},() => {
+			
+		});
+	}
+
+	/*
+		Disable add comment button unless validated.
+	 */
+	commentDisableButton() {
+		if( !this.isCommentValidated() ) {
+			return "disabled";
 		}
 	}
+
+	/*
+		Handle user submitting comment
+	 */
+	handleCommentSubmit() {
+		console.log( this.props );
+		const relatedTreatment = this.props.match.params.id;
+		const comment = this.state.newComment;
+		var data = {
+			relatedTreatment,
+			comment
+		};
+
+		axios({
+			method: 'post',
+			url: `${BASE_SERVER_URL}/comment`,
+			headers: {
+				authorization: getAuthToken_h()
+			},
+			data
+		})
+		.then((res) => {
+			//get all comments again.
+			console.log( "comments ", res.data.comments );
+			this.setState({
+				comments: res.data.comments,
+				newComment: ""
+			});
+		})
+		.catch((err) => {
+			var history = this.props.history;
+			
+			//if user was unauthorized - redirect to login page.			
+			unauth_redirect_h( err, history );
+
+			if( err.response.data.error ) {
+				this.setState({error: err.response.data.error});
+			} else {
+				this.setState({error: 'An error occurred, please try again.  If the problem persists, please contact us.'});
+			}
+		});
+
+	}
+
 
 	componentDidMount() {
 		const id = this.props.match.params.id;
@@ -26,16 +115,38 @@ class Treatment extends Component {
 		})
 		.then((res) => {
 			var treatment = res.data.treatment;
+			console.log( "Comments ", treatment);
 		 	this.setState({
-		 		treatment
+		 		treatment,
+		 		comments: treatment.comments
 		 	});
 		})
 		.catch((err) => {
 		});		
 	}
 
+
+	renderAddCommentHTML() {
+		var {authenticated} = this.props;
+
+		if( authenticated ) {
+			return (
+				<div className="row">
+					<div className="col-md-8 col-md-offset-2">
+						<textarea className="form-control" rows="3" placeholder="Add your comment here..." onChange={ this.handleCommentChange } value={this.state.newComment}></textarea>
+						<div className="centered margin-top-sm">
+							<button onClick={this.handleCommentSubmit} type="button" className="btn btn-default" disabled={this.commentDisableButton()}>Add Comment</button>
+						</div>
+					</div>
+				</div>
+			);
+		}
+	}
+
+
 	render() {
 		var { name, cost, precautions, treatmentComponents, description } = this.state.treatment;
+		var { comments } = this.state;
 
 		//capitalize name
 		name = name.replace(/\b\w/g, l => l.toUpperCase());
@@ -51,6 +162,15 @@ class Treatment extends Component {
 				</tr>
 			);
 		});
+
+		/*
+			Get all comments. 
+		 */
+		var allComments = this.state.comments.map((comment) => {
+			return <Comment key={ comment._id } usercomment={ comment }/>;
+		});
+
+
 
 		return(
 			<div>
@@ -134,8 +254,9 @@ class Treatment extends Component {
 				<div className="row">
 					<div className="col-md-6 col-md-offset-3">
 						<h3 className="margin-top centered">User Comments</h3>
+						{this.renderAddCommentHTML()}
 						<div className="row">
-							<div className="col-md-4 col-md-offset-4 centered margin-top-sm">
+							<div className="col-md-4 col-md-offset-4 centered margin-top">
 								<label htmlFor="">Sort By</label>
 								<select className="form-control" name="" id="">
 									<option value="">Date Created</option>
@@ -147,126 +268,7 @@ class Treatment extends Component {
 							<h3><small className="pull-right">45 comments</small> Comments </h3>
 						</div>
 						<div className="comments-list">
-							<div className="media comment-item">
-								<p className="pull-right"><small>5 days ago</small>
-								</p>
-								
-								<div className="media-body">
-
-									<h4 className="media-heading user_name">Baltej Singh</h4> Wow! this is really great.
-
-									<p><small><a href="">Like</a></small>
-									<br/><span className="user-likes"><small>2345 Likes</small></span></p>
-								</div>
-							</div>
-							<div className="media comment-item">
-								<p className="pull-right"><small>5 days ago</small>
-								</p>
-								
-								<div className="media-body">
-
-									<h4 className="media-heading user_name">Baltej Singh</h4> Wow! this is really great.
-
-									<p><small><a href="">Like</a> - <a href="">Share</a></small>
-									<br/></p>
-								</div>
-							</div>
-							<div className="media comment-item">
-								<p className="pull-right"><small>5 days ago</small>
-								</p>
-								
-								<div className="media-body">
-
-									<h4 className="media-heading user_name">Baltej Singh</h4> Wow! this is really great.
-
-									<p><small><a href="">Like</a> - <a href="">Share</a></small>
-									<br/><span className="user-likes"><small>2345 Likes</small></span></p>
-								</div>
-							</div>
-							<div className="media comment-item">
-								<p className="pull-right"><small>5 days ago</small>
-								</p>
-								
-								<div className="media-body">
-
-									<h4 className="media-heading user_name">Baltej Singh</h4> Wow! this is really great.
-
-									<p><small><a href="">Like</a> - <a href="">Share</a></small>
-									<br/><span className="user-likes"><small>2345 Likes</small></span></p>
-								</div>
-							</div>
-							<div className="media comment-item">
-								<p className="pull-right"><small>5 days ago</small>
-								</p>
-								
-								<div className="media-body">
-
-									<h4 className="media-heading user_name">Baltej Singh</h4> Wow! this is really great.
-
-									<p><small><a href="">Like</a> - <a href="">Share</a></small>
-									<br/><span className="user-likes"><small>2345 Likes</small></span></p>
-								</div>
-							</div>
-							<div className="media comment-item">
-								<p className="pull-right"><small>5 days ago</small>
-								</p>
-								
-								<div className="media-body">
-
-									<h4 className="media-heading user_name">Baltej Singh</h4> Wow! this is really great.
-
-									<p><small><a href="">Like</a> - <a href="">Share</a></small>
-									<br/><span className="user-likes"><small>2345 Likes</small></span></p>
-								</div>
-							</div>
-							<div className="media comment-item">
-								<p className="pull-right"><small>5 days ago</small>
-								</p>
-								
-								<div className="media-body">
-
-									<h4 className="media-heading user_name">Baltej Singh</h4> Wow! this is really great.
-
-									<p><small><a href="">Like</a> - <a href="">Share</a></small>
-									<br/><span className="user-likes"><small>2345 Likes</small></span></p>
-								</div>
-							</div>
-							<div className="media comment-item">
-								<p className="pull-right"><small>5 days ago</small>
-								</p>
-								
-								<div className="media-body">
-
-									<h4 className="media-heading user_name">Baltej Singh</h4> Wow! this is really great.
-
-									<p><small><a href="">Like</a> - <a href="">Share</a></small>
-									<br/><span className="user-likes"><small>2345 Likes</small></span></p>
-								</div>
-							</div>
-							<div className="media comment-item">
-								<p className="pull-right"><small>5 days ago</small>
-								</p>
-								
-								<div className="media-body">
-
-									<h4 className="media-heading user_name">Baltej Singh</h4> Wow! this is really great.
-
-									<p><small><a href="">Like</a> - <a href="">Share</a></small>
-									<br/><span className="user-likes"><small>2345 Likes</small></span></p>
-								</div>
-							</div>
-							<div className="media comment-item">
-								<p className="pull-right"><small>5 days ago</small>
-								</p>
-								
-								<div className="media-body">
-
-									<h4 className="media-heading user_name">Baltej Singh</h4> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam dolore ad incidunt nihil praesentium impedit unde voluptatem, sequi inventore ipsa vitae perferendis aspernatur voluptates dolores libero, at aperiam exercitationem neque.
-
-									<p><small><a href="">Like</a> - <a href="">Share</a></small>
-									<br/><span className="user-likes"><small>2345 Likes</small></span></p>
-								</div>
-							</div>
+							{allComments}
 						</div>
 					{/*End Comment List*/}
 
@@ -281,4 +283,10 @@ class Treatment extends Component {
 	}
 }
 
-export default Treatment;
+function mapStateToProps(state) {
+	return {
+		authenticated: state.auth.authenticated
+	};
+}
+
+export default connect(mapStateToProps, null)(Treatment);
