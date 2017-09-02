@@ -2,6 +2,25 @@
 	Auth helper functions.
  */
 
+/**
+ * Used to set User ID and user Auth token.
+ * @param  {[type]} userID [string of userID returned from logging in]
+ */
+var setLocalUser_h = ( userID, token ) => {
+	localStorage.setItem('token', token);
+	localStorage.setItem('userID', userID);
+};
+
+var getUserId_h = () => {
+	var userID = localStorage.getItem('userID');
+	if( userID ) {
+		return localStorage.getItem('userID');
+	}
+
+	return false;
+};
+
+
 var getAuthToken_h =  () => {
 
 	if( localStorage.getItem('token') ) {
@@ -22,5 +41,7 @@ var unauth_redirect_h =  (err, history) => {
 
 export { 
 	getAuthToken_h,
-	unauth_redirect_h 
+	unauth_redirect_h,
+	setLocalUser_h,
+	getUserId_h 
 };

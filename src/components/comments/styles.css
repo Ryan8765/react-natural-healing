@@ -2,3 +2,81 @@
 	font-weight: bolder;
 	color: #329C15;
 }
+
+.comment_icon {
+	color: #529BFF;
+	-webkit-transition: color 1s; /* Safari */
+    transition: color 1s;
+    font-size: 2.5rem;
+}
+
+.comment_icon:hover {
+	color: #140188;
+	cursor: pointer;
+}
+
+.trash_icon {
+	color: red;
+	-webkit-transition: color 1s; /* Safari */
+    transition: color 1s;
+    font-size: 2.8rem;
+    margin-left: 10px;
+}
+
+.trash_icon:hover {
+	color: #8D0000;
+	cursor: pointer;
+}
+
+
+.edit_icon {
+	color: #CDCD00;
+	-webkit-transition: color 1s; /* Safari */
+    transition: color 1s;
+    font-size: 2.5rem;
+}
+
+.edit_icon:hover {
+	color: #939800;
+	cursor: pointer;
+}
+
+.save-icon {
+	color: #00DA24;
+	-webkit-transition: color 1s; /* Safari */
+    transition: color 1s;
+    font-size: 2.5rem;
+}
+
+.save-icon:hover {
+	color: #009018;
+	cursor: pointer;
+}
+
+.cancel-icon {
+	color: #727272;
+	-webkit-transition: color 1s; /* Safari */
+    transition: color 1s;
+    font-size: 2.5rem;
+    margin-left: 10px;
+}
+
+.cancel-icon:hover {
+	color: #2D2D2D;
+	cursor: pointer;
+}
+
+
+.really-delete-text {
+	-webkit-transition: color 1s; /* Safari */
+    transition: color 1s;
+	color: red;
+	font-weight: bolder;
+	margin-left: 10px;
+}
+
+.really-delete-text:hover {
+	color: #8D0000;
+	cursor: pointer;
+}
+

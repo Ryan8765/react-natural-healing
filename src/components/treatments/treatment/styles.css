@@ -24,6 +24,10 @@
 .comment-item {
   border-bottom: 1px solid #E7E7E7; }
 
+.rating-content {
+  display: inline;
+}
+
 .crud-icon {
   color: #757575;
   float: right;

@@ -2,6 +2,7 @@ import { BASE_SERVER_URL } from '../config';
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 import { AUTH_USER, UNAUTH_USER, AUTH_ERROR } from './types';
+import { setLocalUser_h } from '../helpers/auth';
 
 
 //HISTORY is used to redirect user. 
@@ -21,8 +22,9 @@ export const signinUser =  (email, password, history) => {
 			console.log( res );
 			//change state to show user has been logged in
 			dispatch({type: AUTH_USER});
-			//save toke to localStorage
-			localStorage.setItem('token', res.data.token);
+			//save token and userID to localStorage
+			setLocalUser_h( res.data.userID, res.data.token );
+			//redirect the user
 			history.push('/welcome');
 		})
 		.catch((err) => {
