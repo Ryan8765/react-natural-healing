@@ -11,6 +11,20 @@ var setLocalUser_h = ( userID, token ) => {
 	localStorage.setItem('userID', userID);
 };
 
+
+/**
+ * Removes user reference in local storage on user logout.
+ * @return {[type]} [description]
+ */
+var removeLocalUser_h = () => {
+	if( localStorage.getItem('token') ){
+		localStorage.removeItem('token');
+	}
+	if( localStorage.getItem('userID') ) {
+		localStorage.removeItem('userID');
+	}
+};
+
 var getUserId_h = () => {
 	var userID = localStorage.getItem('userID');
 	if( userID ) {
@@ -43,5 +57,6 @@ export {
 	getAuthToken_h,
 	unauth_redirect_h,
 	setLocalUser_h,
-	getUserId_h 
+	getUserId_h ,
+	removeLocalUser_h
 };

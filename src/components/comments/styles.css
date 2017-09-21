@@ -80,3 +80,8 @@
 	cursor: pointer;
 }
 
+.comment-time {
+	font-style: italic;
+	color: grey;
+}
+

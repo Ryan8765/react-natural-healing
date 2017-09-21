@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import moment from 'moment';
 
 import "./styles.css";
 
@@ -180,11 +181,12 @@ class Comment extends Component {
 		var { date_created, username, likes, comment } = this.state.usercomment;
 		var { edit }      = this.state;
 		var numberOfLikes = likes.length;
+		var localDateTime = moment(date_created).format("MM-DD-YYYY, h:mm a");
 
 		if( edit ) {
 			return (
 				<div className="media comment-item">
-					<p className="pull-right"><small>{ date_created }</small>
+					<p className="pull-right"><small className="comment-time">{ localDateTime }</small>
 					</p>
 					
 					<div className="media-body">
@@ -202,7 +204,7 @@ class Comment extends Component {
 		} else {
 			return (
 				<div className="media comment-item">
-					<p className="pull-right"><small>{ date_created }</small>
+					<p className="pull-right"><small className="comment-time">{ localDateTime }</small>
 					</p>
 					
 					<div className="media-body">

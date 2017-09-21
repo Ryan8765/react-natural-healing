@@ -109,7 +109,7 @@ class Treatments extends Component {
 							<BootstrapTable data={this.state.treatments} hover pagination options={ options } keyField="_id">
 						      <TableHeaderColumn dataField='name' dataSort={ true } filter={ { type: 'TextFilter', delay: 250 } }>Treatment Title</TableHeaderColumn>
 						    
-						      <TableHeaderColumn dataField='patientRating' dataSort={ true }>Patient Rating</TableHeaderColumn>
+						      <TableHeaderColumn dataField='rating' dataSort={ true }>Patient Rating</TableHeaderColumn>
 						      <TableHeaderColumn dataField='cost' dataSort={ true }>Cost</TableHeaderColumn>
 						    </BootstrapTable>
 						</div>

@@ -16,6 +16,9 @@ import CreateAccount from './components/create_account/CreateAccount';
 import About from './components/about/About';
 import Footer from './components/footer/Footer';
 import RequireAuth from './components_higher_order/auth/require_auth.js';
+import UserAccount from './components/user_account/UserAccount';
+
+
 
 //treatments
   //condition treatments
@@ -48,11 +51,11 @@ class App extends Component {
               <Header />
               <Navigation />
               <Switch>
-                  <Route path="/welcome" component={Welcome} />
                   <Route path="/verify/:secret/:email" component = {Verify} />
-                  <Route path="/treatments/create/:conditionID" component={CreateTreatment} />
+                  <Route path="/treatments/create/:conditionID" component={RequireAuth(CreateTreatment) } />
                   <Route path="/condition/:id/treatments" component={ConditionTreatments} />
                   <Route path="/conditions" component={FindConditions} />
+                  <Route path="/account" component={UserAccount} />
                   <Route path="/treatment/:id" component={Treatment} />
                   <Route path="/login" component={Login} />
                   <Route path="/logout" component={Logout} />
@@ -60,6 +63,7 @@ class App extends Component {
                   <Route path="/create-account" component={CreateAccount} />
                   <Route path="/create-condition" component={RequireAuth(CreateCondition)} />
                   <Route path="/about" component={About} />
+                  <Route path="/" component={Welcome} />
               </Switch>
             </div>            
           </div>

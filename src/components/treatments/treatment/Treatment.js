@@ -6,6 +6,8 @@ import Comment from '../../comments/Comment';
 import { connect } from 'react-redux';
 import validator from 'validator';
 import { getAuthToken_h, unauth_redirect_h, getUserId_h } from "../../../helpers/auth";
+import Comments_h from "../../../helpers/Comments";
+import LazyLoad from 'react-lazy-load';
 
 
 
@@ -28,12 +30,13 @@ class Treatment extends Component {
 			treatmentID: this.props.match.params.id
 		}
 
-		this.handleCommentChange    = this.handleCommentChange.bind(this);
-		this.handleCommentSubmit    = this.handleCommentSubmit.bind(this);
-		this.handleAddCommentLike   = this.handleAddCommentLike.bind(this);
-		this.handleUpdateComment    = this.handleUpdateComment.bind(this);
-		this.handleDeleteComment    = this.handleDeleteComment.bind(this);
-		this.handleUserSelectRating = this.handleUserSelectRating.bind(this);
+		this.handleCommentChange     = this.handleCommentChange.bind(this);
+		this.handleCommentSubmit     = this.handleCommentSubmit.bind(this);
+		this.handleAddCommentLike    = this.handleAddCommentLike.bind(this);
+		this.handleUpdateComment     = this.handleUpdateComment.bind(this);
+		this.handleDeleteComment     = this.handleDeleteComment.bind(this);
+		this.handleUserSelectRating  = this.handleUserSelectRating.bind(this);
+		this.handleSortCommentChange = this.handleSortCommentChange.bind(this);
 	}
 
 	/*
@@ -149,6 +152,31 @@ class Treatment extends Component {
 		});
 
 	}
+
+
+	/*
+		Updates comment order
+	 */
+	sortComments( sortChoice, comments ) {
+		
+	}
+
+
+	/*
+		Handle comment sort change
+	 */
+	handleSortCommentChange( event ) {
+		var sortChoice   = event.target.value;
+		var { comments } = this.state;
+
+		var Comments       = new Comments_h( comments );
+		var sortedComments = Comments.sortComments( sortChoice );
+
+		this.setState({
+			comments: sortedComments
+		});
+	}
+
 
 
 	/*
@@ -300,8 +328,7 @@ class Treatment extends Component {
 
 		//new user selected rating
 		var rating = event.target.value;
-		rating = Number(rating);
-		console.log( rating );
+
 
 		var data = {
 			rating,
@@ -384,15 +411,40 @@ class Treatment extends Component {
 
 
 	/*
+		Conditionally renders rating area depending on whether the user is signed in
+	 */
+	renderRatingArea() {
+		var { authenticated } = this.props;
+
+		if( authenticated ) {
+			return (
+				<div>
+					<h4 className="margin-top-sm">Your Rating</h4>
+					<div className="row">
+						{this.renderUserRatingSelect()}
+					</div>
+				</div>
+			);
+		} else {
+			return (
+				<div></div>
+			);
+		}
+	}
+
+
+	/*
 		Renders the select option for a user to rate this particular treatment.
 	 */
 	renderUserRatingSelect() {
-		var { rating } = this.state;
-		if( rating !== undefined && rating !== null && rating !== false && rating >= 0 && rating <= 10 ) {
+		var { rating }        = this.state;
+		var { authenticated } = this.props;
+
+		if( rating !== undefined && rating !== null && rating !== false && rating >= -1 && rating <= 10 ) {
 			return (
 				<div className="col-md-6 col-md-offset-3">
 					<select name="" id="" className="form-control" value={ rating } onChange={this.handleUserSelectRating}>
-						<option value="select">Select</option>
+						<option value="-1">Select</option>
 						<option value="0">0</option>
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -411,7 +463,7 @@ class Treatment extends Component {
 			return(
 				<div className="col-md-6 col-md-offset-3">
 					<select name="" id="" className="form-control" onChange={this.handleUserSelectRating}>
-						<option value="select">Select</option>
+						<option value="-1">Select</option>
 						<option value="0">0</option>
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -451,21 +503,26 @@ class Treatment extends Component {
 			);
 		});
 
+
 		/*
 			Get all comments.  Passes function to handle liking comments as well.  
 		 */
 		var allComments = this.state.comments.map((comment) => {
-			return <Comment 
-					key={ comment._id } 
-					usercomment={ comment } 
-					userID={ this.state.userID } 
-					authenticated={authenticated} 
-					commentID={comment._id} 
-					treatmentID={this.state.treatmentID} 
-					likeComment={ this.handleAddCommentLike } 
-					likes={comment.likes}
-					updateComment={ this.handleUpdateComment }
-					deleteComment={ this.handleDeleteComment }/>;
+			return (
+				<LazyLoad offset={ 300 }>
+					<Comment 
+						key={ comment._id } 
+						usercomment={ comment } 
+						userID={ this.state.userID } 
+						authenticated={authenticated} 
+						commentID={comment._id} 
+						treatmentID={this.state.treatmentID} 
+						likeComment={ this.handleAddCommentLike } 
+						likes={comment.likes}
+						updateComment={ this.handleUpdateComment }
+						deleteComment={ this.handleDeleteComment }/>
+				</LazyLoad>
+			);
 		});
 
 
@@ -479,8 +536,8 @@ class Treatment extends Component {
 								<div className="centered">
 									{/*<span className="rating-icon" title="Doctor Rating"><i className="fa fa-user-md" aria-hidden="true"></i></span>
 									 - <span className="rating-review">9.8</span> <span className="num-reviews"> out of 5000 Reviews</span><br/>*/}
-									<span className="rating-icon" title="User Rating"><i className="fa fa-user" aria-hidden="true"></i></span>
-									 - { this.renderRatings() }
+									<span className="rating-icon" title="User Rating"><i className="fa fa-user" aria-hidden="true"></i></span> &nbsp;
+									 - &nbsp;{ this.renderRatings() }
 								</div>
 							</div>
 						</div>
@@ -489,10 +546,7 @@ class Treatment extends Component {
 				<div className="row">
 					<div className="centered">
 						<div className="col-md-2 col-md-offset-5">
-							<h4 className="margin-top-sm">Your Rating</h4>
-							<div className="row">
-								{this.renderUserRatingSelect()}
-							</div>
+							{ this.renderRatingArea() }
 						</div>
 					</div>
 				</div>
@@ -540,9 +594,9 @@ class Treatment extends Component {
 						<div className="row">
 							<div className="col-md-4 col-md-offset-4 centered margin-top">
 								<label htmlFor="">Sort By</label>
-								<select className="form-control" name="" id="">
-									<option value="">Date Created</option>
-									<option value="">Most Likes</option>
+								<select onChange={ this.handleSortCommentChange } className="form-control" name="" id="">
+									<option value="date created">Date Created</option>
+									<option value="likes">Most Likes</option>
 								</select>
 							</div>
 						</div>
@@ -555,9 +609,14 @@ class Treatment extends Component {
 						</div>
 					{/*End Comment List*/}
 
-						<div className="margin-top">
-							<button className="form-control styled-button">Load More Comments</button>
-						</div>
+						{/*
+							Load more Comments code.
+								<div className="margin-top">
+									<button className="form-control styled-button">Load More Comments</button>
+								</div>
+
+						*/}
+						
 					</div>
 				</div>
 				{/*Comments*/}

@@ -1,3 +1,5 @@
+import { removeLocalUser_h } from '../helpers/auth';
+
 import { 
 	AUTH_USER, 
 	UNAUTH_USER, 
@@ -10,6 +12,7 @@ export default (state = {}, action) => {
 		case AUTH_USER: 
 			return {...state, authenticated: true };
 		case UNAUTH_USER: 
+			removeLocalUser_h();
 			return {...state, authenticated: false };
 		case AUTH_ERROR: 
 			return {...state, signinError: action.payload };
