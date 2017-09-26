@@ -82,7 +82,6 @@ class Login extends Component {
 		//use this to redirect - this.props.history.push('/')
 		var history  = this.props.history;
 		//launch action
-		console.log( "***************************************************" );
 		this.props.signinUser( email, password, history );
 	}
 

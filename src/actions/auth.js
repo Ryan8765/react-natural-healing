@@ -9,6 +9,7 @@ import { setLocalUser_h } from '../helpers/auth';
 export const signinUser =  (email, password, history) => {
 
 	return function( dispatch ) {
+		console.log( "base URL ************** " + `${BASE_SERVER_URL}/signin` );
 		//submit email/password to the server
 		axios({
 			method: 'post',
