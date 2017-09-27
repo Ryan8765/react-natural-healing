@@ -5,7 +5,7 @@ import { AUTH_USER, UNAUTH_USER, AUTH_ERROR } from './types';
 import { setLocalUser_h } from '../helpers/auth';
 
 
-//HISTORY is used to redirect user. 
+//HISTORY is used to redirect user....
 export const signinUser =  (email, password, history) => {
 
 	return function( dispatch ) {
