@@ -292,8 +292,8 @@ class CreateTreatmentForm extends Component {
 			if( this.state.showTrashCan ) {
 				return (
 					<div className="row">
-						<span title="Delete Selected Treatment Items" onClick={this.handleDeleteTreatmentComponents}>
-							<i className="fa fa-trash delete-row" aria-hidden="true"></i>
+						<span className="delete-row" title="Delete Selected Treatment Items" onClick={this.handleDeleteTreatmentComponents}>
+							<i className="fa fa-trash" aria-hidden="true"></i>
 						</span>
 					</div>
 				);
