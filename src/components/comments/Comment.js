@@ -143,7 +143,7 @@ class Comment extends Component {
 			);
 		} else {
 			return (
-				<span title="Delete Comment" onClick={this.showReallyDelete}><i className="fa fa-trash trash_icon" aria-hidden="true"></i></span>
+				<span title="Delete Comment" className="trash_icon" onClick={this.showReallyDelete}><i className="fa fa-trash" aria-hidden="true"></i></span>
 			);
 		}
 	}
@@ -160,14 +160,14 @@ class Comment extends Component {
 		if( usercomment.relatedUser === userID ) {
 			return (
 				<p>
-					<span title="Edit Comment" onClick={this.editComment}><i className="fa fa-pencil-square edit_icon" aria-hidden="true"></i></span> {this.renderReallyDeleteText()}
+					<span title="Edit Comment" className="edit_icon" onClick={this.editComment}><i className="fa fa-pencil-square" aria-hidden="true"></i></span> {this.renderReallyDeleteText()}
 				</p>
 			);
 		} else {
 			if( !this.hasUserLikedComment( likes, userID ) ) {
 				return (
 					<p>
-						<span onClick={ this.likeComment }><i className="fa fa-thumbs-up comment_icon" aria-hidden="true"></i></span>
+						<span className="comment_icon" onClick={ this.likeComment }><i className="fa fa-thumbs-up" aria-hidden="true"></i></span>
 					</p>
 				);
 			} else {
