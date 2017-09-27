@@ -7,9 +7,9 @@ import { setLocalUser_h } from '../helpers/auth';
 
 //HISTORY is used to redirect user. 
 export const signinUser =  (email, password, history) => {
+	alert( "base URL ************** " + `${BASE_SERVER_URL}/signin` );
 
 	return function( dispatch ) {
-		alert( "base URL ************** " + `${BASE_SERVER_URL}/signin` );
 		//submit email/password to the server
 		axios({
 			method: 'post',
