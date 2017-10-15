@@ -9,7 +9,7 @@ import './styles.css';
 class CreateAccount extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { 
+		this.state = {
 			accountType: "notSelected",
 		};
 
@@ -17,7 +17,7 @@ class CreateAccount extends Component {
 
 	}
 
-	
+
 	handleSelectUserType( event ) {
 		this.setState({ accountType: event.target.value });
 	}
@@ -41,14 +41,14 @@ class CreateAccount extends Component {
 		return(
 			<div>
 			<h1 className="centered">Create a New Account</h1>
-					
+
 				<div className="row">
 					<div className="col-md-2 col-md-offset-5">
 						<div className="form-group">
 							<h3 className="centered">Select Type of Account</h3>
-							<select 
-								className="form-control" 
-								name="selectType" 
+							<select
+								className="form-control"
+								name="selectType"
 								id="show-form"
 								onChange={this.handleSelectUserType}>
 									<option value="">Select Type</option>
@@ -57,7 +57,7 @@ class CreateAccount extends Component {
 							</select>
 						</div>
 					</div>
-				</div>					
+				</div>
 				{this.renderForm(this.state.accountType)}
 			</div>
 		);

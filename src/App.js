@@ -10,7 +10,8 @@ import Welcome from './components/welcome/Welcome';
 import CreateTreatment from './components/treatments/create/CreateTreatment';
 import Login from './components/login/Login';
 import Logout from './components/logout/Logout';
-import Password from './components/password_reset/Password';
+import Password from './components/password_reset/request/Password';
+import ResetPassword from './components/password_reset/update/Password';
 import Verify from './components/verify_email/Verify';
 import CreateAccount from './components/create_account/CreateAccount';
 import About from './components/about/About';
@@ -52,7 +53,9 @@ class App extends Component {
               <Navigation />
               <Switch>
                   <Route path="/verify/:secret/:email" component = {Verify} />
-                  <Route path="/treatments/create/:conditionID" component={RequireAuth(CreateTreatment) } />
+                  <Route path="/reset/:pwtoken/:email" component={ResetPassword} />
+                  <Route
+                      path="/treatments/create/:conditionID" component={RequireAuth(CreateTreatment) } />
                   <Route path="/condition/:id/treatments" component={ConditionTreatments} />
                   <Route path="/conditions" component={FindConditions} />
                   <Route path="/account" component={UserAccount} />
@@ -65,7 +68,7 @@ class App extends Component {
                   <Route path="/about" component={About} />
                   <Route path="/" component={Welcome} />
               </Switch>
-            </div>            
+            </div>
           </div>
         </BrowserRouter>
       </div>

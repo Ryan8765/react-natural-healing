@@ -16,14 +16,14 @@ class Verify extends Component {
 	componentDidMount() {
 		var { email, secret } = this.props.match.params;
 
-		setTimeout(()=>{ 
+		setTimeout(()=>{
 			axios({
 			method: 'post',
 			url: `${BASE_SERVER_URL}/verify/${secret}/${email}`
 			})
 			.then((res) => {
 				console.log( res );
-				
+
 				if( res.data.success ) {
 					this.setState({ verified: true });
 				} else {
